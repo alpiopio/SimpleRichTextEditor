@@ -1,14 +1,16 @@
 <script type="text/javascript">
 function designOn(){
-  editor.document.designMode = "On";
+	editor.document.designMode = "On";
 }
 function execution(command){
 	editor.focus();
 	editor.document.execCommand(command,false,null);
 }
-function submit_form(){
-	var theForm = document.getElementById("myform");//nama form
-	theForm.elements["textEditor"].value = window.frames['editor'].document.body.innerHTML;//textEditor = nama text area untuk mengirim data
+function show(formName,textareaName,iframeName){
+	var theForm = document.getElementById(formName);
+	theForm.elements[textareaName].value = window.frames[iframeName].document.body.innerHTML;
+	var a = window.frames[iframeName].document.body.innerHTML;
+	alert(a);
 }
 </script>
 <style>
@@ -24,14 +26,14 @@ function submit_form(){
 	font-family: 'PT Sans',Arial,Helvetica,sans-serif;
 	overflow : hidden;
 }
-ul{
+#rich ul{
 	float : left;
 	margin : 0px 0px 7px -40px;
 }
-li{
+#rich li{
 	display : inline;
 }
-li a{
+#rich li a{
 	padding : 2px 5px;
 	background : red;
 	border-radius:5px;
@@ -42,6 +44,7 @@ li a{
 	color : #999;
 }
 </style>
+<form name='myform' id='myform'>
 <div id='rich'>
 <ul>
 <li><a href='javascript:execution("Bold");'>Bold</a></li>
@@ -49,7 +52,9 @@ li a{
 <li><a href='javascript:execution("Italic");'>Italic</a></li>
 <li><a href='javascript:execution("insertunorderedlist");'>UL</a></li>
 <li><a href='javascript:execution("insertorderedlist");'>OL</a></li>
+<li><a href='javascript:show("myform","textEditor","editor");'>Show</a></li>
 </ul>
 <textarea  name="textEditor" id="textEditor" style='width:100%;height:48px;display:none;'></textarea>
 <iframe name='editor' id='editor' onload="designOn();" style='border:1px solid #e7e7e7;border-radius:5px;width:100%;height:48px;background:#ffffff;'></iframe>
 </div>
+</form>
